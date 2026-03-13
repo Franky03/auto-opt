@@ -105,16 +105,18 @@ def main():
 
     all_results = []
 
-    # Avalia cada conjunto disponivel
-    sets = [
-        ("train", "Sinteticas (Treino)"),
-        ("benchmark_a", "Augerat Set A (Benchmark)"),
-        ("heldout_b", "Augerat Set B (Held-out)"),
-        ("cmt", "Christofides (CMT)"),
-        ("golden", "Golden (Escala)"),
+    # Conjuntos de benchmark (exceto held-out)
+    BENCHMARK_SETS = [
+        ("train",       "Sinteticas (Treino)",          "treino"),
+        ("benchmark_a", "Augerat Set A",                "benchmark principal"),
+        ("benchmark_p", "Augerat Set P",                "benchmark secundario"),
+        ("eilon_e",     "Eilon E",                      "benchmark historico"),
     ]
 
-    for set_key, set_label in sets:
+    HELDOUT_SET = ("heldout_b", "Augerat B (held-out)")
+
+    # Avalia benchmarks principais
+    for set_key, set_label, _role in BENCHMARK_SETS:
         try:
             instances = load_instance_set(set_key)
         except FileNotFoundError:
@@ -129,6 +131,23 @@ def main():
             all_results.append({**r, "set": set_key})
 
         print_table(results, set_label)
+
+    # Avalia held-out separadamente
+    heldout_key, heldout_label = HELDOUT_SET
+    try:
+        instances = load_instance_set(heldout_key)
+        print(f"\n{'='*85}")
+        print(f" === HELD-OUT (Augerat B) — agente nunca viu estas instancias ===")
+        print(f"\nAvaliando {heldout_label} ({len(instances)} instancias)...")
+        results = []
+        for inst in instances:
+            r = evaluate_instance(solve, inst, args.time_limit)
+            results.append(r)
+            all_results.append({**r, "set": heldout_key})
+
+        print_table(results, heldout_label)
+    except FileNotFoundError:
+        print(f"\n[!] {heldout_label}: nao disponivel (rode download_instances.py)")
 
     # Salva CSV
     if all_results:

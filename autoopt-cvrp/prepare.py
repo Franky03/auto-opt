@@ -231,30 +231,32 @@ def evaluate_solution(solution: list, instance: dict) -> dict:
 
 
 # ============================================================
-# DIVISAO OFICIAL DE INSTANCIAS
+# DIVISÃO OFICIAL DE INSTÂNCIAS — AutoOpt-CVRP
 # ============================================================
 
-# TREINO -- usadas pelo agente durante o loop overnight
-# Instancias sinteticas rapidas (n=50) para evolucao da heuristica
+# TREINO — instâncias sintéticas usadas pelo agente durante o loop overnight
+# Pequenas (n=50) para permitir ~100 experimentos por noite
 TRAIN_INSTANCES = [generate_instance(BENCHMARK_N, seed) for seed in BENCHMARK_SEEDS]
 
 # Alias para compatibilidade
 BENCHMARK_INSTANCES = TRAIN_INSTANCES
 
-# BENCHMARK PRINCIPAL -- avaliacao apos treino, reportado no paper
-# Augerat Set A completo (27 instancias)
+# BENCHMARK PRINCIPAL — Augerat Set A (27 instâncias)
+# Reportado na tabela principal do paper. BKS conhecidos para todas.
 BENCHMARK_A_PATH = os.path.join(SCRIPT_DIR, "instances", "augerat_a")
 
-# HELD-OUT -- o agente NUNCA ve estas durante o desenvolvimento
-# Augerat Set B completo (23 instancias)
+# HELD-OUT — Augerat Set B (22 instâncias)
+# O agente NUNCA vê estas durante o desenvolvimento.
+# Usadas apenas na avaliação final para medir generalização.
 HELDOUT_B_PATH = os.path.join(SCRIPT_DIR, "instances", "augerat_b")
 
-# BENCHMARK DE ESCALA -- mostra que a heuristica escala
-BENCHMARK_GOLDEN_PATH = os.path.join(SCRIPT_DIR, "instances", "golden")
-BENCHMARK_GOLDEN_SUBSET = [f"Golden_{i}.vrp" for i in range(1, 11)]
+# BENCHMARK SECUNDÁRIO — Augerat Set P (23 instâncias)
+# Tabela complementar no paper.
+BENCHMARK_P_PATH = os.path.join(SCRIPT_DIR, "instances", "augerat_p")
 
-# BENCHMARK CLASSICO -- conecta com literatura fundacional
-BENCHMARK_CMT_PATH = os.path.join(SCRIPT_DIR, "instances", "christofides")
+# BENCHMARK HISTÓRICO — Eilon E / Christofides & Eilon 1969 (12 instâncias)
+# Conecta o trabalho com a literatura fundacional do CVRP.
+BENCHMARK_E_PATH = os.path.join(SCRIPT_DIR, "instances", "eilon_e")
 
 
 def get_benchmark_instances() -> list:
@@ -265,7 +267,7 @@ def get_benchmark_instances() -> list:
 def load_instance_set(instance_set: str) -> list[dict]:
     """
     Carrega um conjunto de instancias por nome.
-    instance_set: "train" | "benchmark_a" | "heldout_b" | "cmt" | "golden"
+    instance_set: "train" | "benchmark_a" | "heldout_b" | "benchmark_p" | "eilon_e"
     Retorna lista de dicts no formato padrao.
     """
     if instance_set == "train":
@@ -274,8 +276,8 @@ def load_instance_set(instance_set: str) -> list[dict]:
     path_map = {
         "benchmark_a": BENCHMARK_A_PATH,
         "heldout_b": HELDOUT_B_PATH,
-        "cmt": BENCHMARK_CMT_PATH,
-        "golden": BENCHMARK_GOLDEN_PATH,
+        "benchmark_p": BENCHMARK_P_PATH,
+        "eilon_e": BENCHMARK_E_PATH,
     }
 
     path = path_map.get(instance_set)
@@ -285,11 +287,6 @@ def load_instance_set(instance_set: str) -> list[dict]:
     vrp_files = sorted(glob.glob(os.path.join(path, "*.vrp")))
     if not vrp_files:
         raise FileNotFoundError(f"Nenhum arquivo .vrp em {path}")
-
-    if instance_set == "golden":
-        # Apenas subset definido
-        subset_names = set(BENCHMARK_GOLDEN_SUBSET)
-        vrp_files = [f for f in vrp_files if os.path.basename(f) in subset_names]
 
     instances = []
     for fpath in vrp_files:
@@ -315,7 +312,7 @@ if __name__ == "__main__":
     print(f"\n{len(TRAIN_INSTANCES)} instancias geradas com sucesso.")
 
     # Testa conjuntos reais se disponiveis
-    for name in ["benchmark_a", "heldout_b", "cmt", "golden"]:
+    for name in ["benchmark_a", "heldout_b", "benchmark_p", "eilon_e"]:
         try:
             insts = load_instance_set(name)
             print(f"\n{name}: {len(insts)} instancias carregadas")

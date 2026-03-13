@@ -34,6 +34,18 @@ simples sem nenhuma fase de melhoria. Ha muito espaco para melhorar.
 - Nao use numpy, scipy, OR-Tools ou qualquer biblioteca externa
 - Nao mude a assinatura da funcao `solve(instance, time_limit)`
 
+## Conjuntos de instâncias disponíveis
+
+| Conjunto   | Instâncias | Papel                        |
+|------------|-----------|------------------------------|
+| Augerat A  | 27        | Benchmark principal do paper |
+| Augerat B  | 22        | Held-out (não usado no treino)|
+| Augerat P  | 23        | Benchmark secundário         |
+| Eilon E    | 12        | Benchmark histórico clássico |
+
+O agente treina APENAS nas instâncias sintéticas (n=50).
+Os conjuntos acima são usados APENAS para avaliação final.
+
 ## Criterio de aceitacao
 
 Uma nova versao eh mantida se o score medio nas 10 instancias de benchmark
