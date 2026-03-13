@@ -1,0 +1,5 @@
+FROM ./Qwen3.5-27B.Q4_K_M.gguf
+# Configura o sistema para o modelo de raciocínio
+SYSTEM "Você é um assistente de IA focado em Pesquisa Operacional e scheduling."
+PARAMETER num_ctx 8192
+PARAMETER num_gpu -1

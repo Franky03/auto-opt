@@ -1,0 +1,16 @@
+# Modelos GGUF (muito grandes para git)
+*.gguf
+
+# Segredos
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
