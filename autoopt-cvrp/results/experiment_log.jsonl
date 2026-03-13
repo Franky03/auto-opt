@@ -1,0 +1,2 @@
+{"id": 1, "timestamp": "2026-03-13T23:55:26", "accepted": false, "score_before": 1722.8537, "score_after": 1722.8537, "improvement_pct": 0, "feasible_count": 10, "description": "Heuristica CVRP -- Geracao 1", "crash": false}
+{"id": 2, "timestamp": "2026-03-13T23:57:34", "accepted": true, "score_before": 1722.8537, "score_after": 1685.5533, "improvement_pct": 2.17, "feasible_count": 10, "description": "Heuristica CVRP -- Geracao 1", "crash": false}
