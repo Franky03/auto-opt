@@ -1,0 +1,11 @@
+[project]
+name = "autoopt-cvrp"
+version = "0.1.0"
+description = "Loop agentic autonomo para otimizacao de heuristicas CVRP"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
