@@ -1,8 +1,9 @@
 """
-Heuristica CVRP -- Geracao 1
-Algoritmo: Nearest Neighbor Greedy + 2-opt intra-rota
-Descricao: Constroi rotas com Nearest Neighbor, depois aplica 2-opt em cada rota
-           para melhorar a sequencia de visitas dentro de cada rota.
+Heuristica CVRP -- Geracao 2
+Algoritmo: Nearest Neighbor Greedy + 2-opt intra-rota + Or-opt inter-rotas
+Descricao: Constroi rotas com Nearest Neighbor, aplica 2-opt em cada rota,
+           depois usa Or-opt para realocar clientes entre rotas e reduzir
+           a distancia total.
 """
 
 import time as _time
@@ -66,12 +67,8 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
         improved = True
         while improved:
             improved = False
-            # uma rota [0, c1, c2, ..., ck, 0] tem k+1 arestas
-            # tentamos trocar arestas (i, i+1) e (j, j+1) por (i, j) e (i+1, j+1)
             for i in range(1, len(route) - 2):
                 for j in range(i + 1, len(route) - 1):
-                    # arestas atuais: (route[i], route[i+1]) e (route[j], route[j+1])
-                    # arestas novas:  (route[i], route[j]) e (route[i+1], route[j+1])
                     a, b = route[i], route[i + 1]
                     c, d = route[j], route[j + 1]
                     
@@ -79,7 +76,6 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
                     dist_nova = euclidean_distance(coords[a], coords[c]) + euclidean_distance(coords[b], coords[d])
                     
                     if dist_nova < dist_atual:
-                        # inverte a sub-rota de i+1 a j
                         route[i + 1:j + 1] = reversed(route[i + 1:j + 1])
                         improved = True
                         break
@@ -87,8 +83,107 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
                     break
         return route
 
-    # Aplica 2-opt em cada rota
     for route in routes:
-        route = two_opt(route, coords)
+        two_opt(route, coords)
 
+    # ============ FASE 3: Or-opt inter-rotas ============
+    def route_distance(route: list, coords: list) -> float:
+        """Calcula a distancia total de uma rota."""
+        dist = 0.0
+        for i in range(len(route) - 1):
+            dist += euclidean_distance(coords[route[i]], coords[route[i + 1]])
+        return dist
+
+    def total_distance(routes: list, coords: list) -> float:
+        """Calcula a distancia total de todas as rotas."""
+        return sum(route_distance(r, coords) for r in routes)
+
+    def or_opt(routes: list, coords: list, demands: list, capacity: float) -> list:
+        """
+        Or-opt: tenta mover clientes individuais entre rotas para reduzir a distancia.
+        """
+        improved = True
+        max_iterations = 100
+        iteration = 0
+        
+        while improved and iteration < max_iterations:
+            improved = False
+            iteration += 1
+            
+            # Para cada rota de origem
+            for from_route_idx in range(len(routes)):
+                from_route = routes[from_route_idx]
+                
+                # Para cada cliente na rota (excluindo deposito)
+                for i in range(1, len(from_route) - 1):
+                    customer = from_route[i]
+                    customer_demand = demands[customer]
+                    
+                    # Calcular custo de remover o cliente da rota de origem
+                    prev_node = from_route[i - 1]
+                    next_node = from_route[i + 1]
+                    removal_cost = (euclidean_distance(coords[prev_node], coords[customer]) +
+                                   euclidean_distance(coords[customer], coords[next_node]) -
+                                   euclidean_distance(coords[prev_node], coords[next_node]))
+                    
+                    # Tentar inserir em outras rotas
+                    for to_route_idx in range(len(routes)):
+                        if to_route_idx == from_route_idx:
+                            continue
+                        
+                        to_route = routes[to_route_idx]
+                        to_route_load = sum(demands[node] for node in to_route[1:-1])
+                        
+                        # Verificar se o cliente cabe na rota de destino
+                        if to_route_load + customer_demand > capacity:
+                            continue
+                        
+                        # Tentar inserir em todas as posicoes da rota de destino
+                        for j in range(1, len(to_route)):  # posicoes 1..len-1
+                            prev_b = to_route[j - 1]
+                            next_b = to_route[j]
+                            
+                            # Custo de insercao
+                            insertion_cost = (euclidean_distance(coords[prev_b], coords[customer]) +
+                                             euclidean_distance(coords[customer], coords[next_b]) -
+                                             euclidean_distance(coords[prev_b], coords[next_b]))
+                            
+                            # Ganho = custo_remocao - custo_insercao
+                            gain = removal_cost - insertion_cost
+                            
+                            if gain > 1e-9:  # Melhorar a solucao
+                                # Remover da rota de origem
+                                from_route.pop(i)
+                                
+                                # Inserir na rota de destino
+                                to_route.insert(j, customer)
+                                
+                                improved = True
+                                break
+                        
+                        if improved:
+                            break
+                    
+                    if improved:
+                        break
+                
+                if improved:
+                    break
+        
+        return routes
+
+    # Aplicar Or-opt com controle de tempo
+    while _time.time() < t_start + time_limit - 0.5:  # reservar 0.5s para segurança
+        routes_before = [list(r) for r in routes]
+        total_dist_before = total_distance(routes, coords)
+        
+        routes = or_opt(routes, coords, demands, capacity)
+        
+        total_dist_after = total_distance(routes, coords)
+        
+        if total_dist_after >= total_dist_before - 1e-9:
+            # Sem melhoria, restaurar e sair
+            routes = routes_before
+            break
+    
     return routes
