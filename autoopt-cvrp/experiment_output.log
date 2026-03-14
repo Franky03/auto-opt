@@ -1,0 +1,14 @@
+nohup: ignoring input
+[autoopt] Modelo: qwen-reasoning
+[autoopt] Experimentos: 100
+[autoopt] Time limit: 30.0s por instancia
+
+[autoopt] Avaliando heuristica atual...
+[autoopt] Score baseline: 1311.90
+[autoopt] Feasiveis: 10/10
+[autoopt] Scores: ['1006.5', '1627.8', '1448.2', '1396.6', '1220.6', '1337.3', '1449.8', '1251.1', '1298.4', '1082.7']
+
+============================================================
+[autoopt] Experimento #1
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...

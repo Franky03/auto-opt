@@ -206,6 +206,13 @@ def evaluate_heuristic(time_limit: float) -> dict:
             continue
 
         sol = result["solution"]
+        if sol is None:
+            crash_count += 1
+            crash_msg = "solve() retornou None"
+            scores.append(float("inf"))
+            distances.append(0)
+            vehicles.append(0)
+            continue
         metrics = evaluate_solution(sol, inst)
         scores.append(metrics["score"])
         distances.append(metrics["total_distance"])
@@ -243,11 +250,26 @@ def build_agent_prompt(current_code: str, program_md: str, prepare_py: str,
                        history: list, current_scores: dict) -> str:
     """Monta o prompt completo para o agente."""
     if history:
-        history_str = "\n".join([
-            f"  Exp {h['id']}: score {h['score_after']:.2f} | "
-            f"{'ACEITO' if h['accepted'] else 'REVERTIDO'} | {h['description']}"
-            for h in history[-5:]
-        ])
+        # Mostra ultimos 20 experimentos para o agente aprender com tentativas passadas
+        recent = history[-20:]
+        accepted_lines = []
+        rejected_lines = []
+        for h in recent:
+            line = f"  Exp {h['id']}: score {h['score_after']:.2f} | {h['description']}"
+            if h['accepted']:
+                imp = h.get('improvement_pct', 0)
+                accepted_lines.append(f"{line} (melhoria {imp:+.1f}%)")
+            else:
+                reason = "crash" if h.get('crash') else "sem melhoria"
+                rejected_lines.append(f"{line} ({reason})")
+
+        history_str = ""
+        if accepted_lines:
+            history_str += "  ACEITOS (mantenha estas direcoes):\n" + "\n".join(accepted_lines)
+        if rejected_lines:
+            history_str += "\n  REJEITADOS (NAO repita estas abordagens):\n" + "\n".join(rejected_lines)
+        if not history_str:
+            history_str = "  (nenhum experimento anterior)"
     else:
         history_str = "  (nenhum experimento anterior)"
 
