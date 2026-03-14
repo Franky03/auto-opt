@@ -1,9 +1,11 @@
 """
-Heuristica CVRP -- Geracao 2
-Algoritmo: Nearest Neighbor Greedy + 2-opt intra-rota + Or-opt inter-rotas
-Descricao: Constroi rotas com Nearest Neighbor, aplica 2-opt em cada rota,
-           depois usa Or-opt para realocar clientes entre rotas e reduzir
-           a distancia total.
+Heuristica CVRP -- Geracao 3
+Algoritmo: Clarke-Wright Savings + 2-opt intra-rota + Or-opt inter-rotas
+Descricao: Constroi rotas com o algoritmo de Savings de Clarke-Wright,
+           aplica 2-opt em cada rota, depois usa Or-opt para realocar
+           clientes entre rotas e reduzir a distancia total.
+Mudanca: Substitui Nearest Neighbor por Clarke-Wright Savings para melhor
+         solucao inicial (considera economia global, nao apenas vizinhanca local).
 """
 
 import time as _time
@@ -30,36 +32,96 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
     coords = [depot] + instance["coords"]  # no 0 = deposito
     demands = [0] + instance["demands"]    # demanda 0 do deposito
 
-    # ============ FASE 1: Construcao com Nearest Neighbor ============
-    unvisited = set(range(1, n + 1))
-    routes = []
-
-    while unvisited:
-        route = [0]
-        load = 0
-        current = 0
-
-        while True:
-            # encontra o cliente nao visitado mais proximo que cabe
-            best = None
-            best_dist = float("inf")
-            for c in unvisited:
-                if load + demands[c] <= capacity:
-                    d = euclidean_distance(coords[current], coords[c])
-                    if d < best_dist:
-                        best_dist = d
-                        best = c
-
-            if best is None:
-                break  # nenhum cliente cabe -- fecha a rota
-
-            route.append(best)
-            load += demands[best]
-            unvisited.remove(best)
-            current = best
-
-        route.append(0)  # retorna ao deposito
-        routes.append(route)
+    # ============ FASE 1: Construcao com Clarke-Wright Savings ============
+    # Calcula distancias do deposito para cada cliente
+    dist_to_depot = [euclidean_distance(coords[0], coords[i]) for i in range(1, n + 1)]
+    
+    # Calcula savings para cada par de clientes
+    # savings[i][j] = d(0,i) + d(0,j) - d(i,j)
+    savings = []
+    for i in range(1, n + 1):
+        row = []
+        for j in range(i + 1, n + 1):
+            s = dist_to_depot[i - 1] + dist_to_depot[j - 1] - euclidean_distance(coords[i], coords[j])
+            row.append((s, i, j))
+        savings.extend(row)
+    
+    # Ordena savings em ordem decrescente
+    savings.sort(reverse=True)
+    
+    # Inicializa cada cliente em sua propria rota
+    routes = [[0, i, 0] for i in range(1, n + 1)]
+    route_load = [demands[i] for i in range(1, n + 1)]
+    in_route = {i: i - 1 for i in range(1, n + 1)}  # cliente -> indice da rota
+    
+    # Lista de clientes nas extremidades de cada rota (para verificacao rapida)
+    route_ends = [[1, -1] for _ in range(n)]  # [primeiro, ultimo] cliente em cada rota
+    
+    for _, i, j in savings:
+        if _time.time() > t_start + time_limit - 1.0:
+            break
+            
+        route_i = in_route.get(i)
+        route_j = in_route.get(j)
+        
+        if route_i is None or route_j is None or route_i == route_j:
+            continue
+        
+        # Verifica se i e j estao nas extremidades de suas rotas
+        # i deve ser primeiro ou ultimo em sua rota
+        # j deve ser primeiro ou ultimo em sua rota
+        ends_i = route_ends[route_i]
+        ends_j = route_ends[route_j]
+        
+        i_at_end = (i == ends_i[0] or i == ends_i[1])
+        j_at_end = (j == ends_j[0] or j == ends_j[1])
+        
+        if not (i_at_end and j_at_end):
+            continue
+        
+        # Verifica capacidade
+        if route_load[route_i] + route_load[route_j] > capacity:
+            continue
+        
+        # Determina como concatenar as rotas
+        # Rotas sao do tipo [0, ..., 0]
+        route_i_obj = routes[route_i]
+        route_j_obj = routes[route_j]
+        
+        # Decide orientacao para minimizar distancia
+        # Opcoes: i...0 + 0...j ou i...0 + j...0 (inverte rota j)
+        if i == ends_i[0]:  # i eh primeiro na rota i
+            if j == ends_j[0]:  # j eh primeiro na rota j
+                # Concatena: rota_i + rota_j_invertida
+                new_route = route_i_obj + route_j_obj[-2:0:-1] + [0]
+            else:  # j eh ultimo na rota j
+                # Concatena: rota_i + rota_j
+                new_route = route_i_obj + route_j_obj[1:]
+        else:  # i eh ultimo na rota i
+            if j == ends_j[0]:  # j eh primeiro na rota j
+                # Concatena: rota_j_invertida + rota_i
+                new_route = route_j_obj[-2:0:-1] + [0] + route_i_obj[1:]
+            else:  # j eh ultimo na rota j
+                # Concatena: rota_j + rota_i_invertida
+                new_route = route_j_obj + route_i_obj[-2:0:-1] + [0]
+        
+        # Atualiza rotas
+        routes[route_i] = new_route
+        routes[route_j] = [0, 0]  # rota vazia
+        route_load[route_i] += route_load[route_j]
+        route_load[route_j] = 0
+        
+        # Atualiza extremidades
+        if len(new_route) > 2:
+            route_ends[route_i] = [new_route[1], new_route[-2]]
+        
+        # Atualiza mapeamento para clientes da rota j
+        for node in new_route:
+            if 1 <= node <= n:
+                in_route[node] = route_i
+    
+    # Remove rotas vazias
+    routes = [r for r in routes if len(r) > 2]
 
     # ============ FASE 2: Melhoria 2-opt intra-rota ============
     def two_opt(route: list, coords: list) -> list:
@@ -173,7 +235,7 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
         return routes
 
     # Aplicar Or-opt com controle de tempo
-    while _time.time() < t_start + time_limit - 0.5:  # reservar 0.5s para segurança
+    while _time.time() < t_start + time_limit - 0.5:  # reservar 0.5s para seguranca
         routes_before = [list(r) for r in routes]
         total_dist_before = total_distance(routes, coords)
         
