@@ -1,0 +1,2 @@
+{"id": 1, "timestamp": "2026-03-14T16:36:53", "accepted": false, "score_before": 1311.899, "score_after": 0, "improvement_pct": 0, "feasible_count": 10, "description": "Geracao 1 - Modificacao: Perturbacao Inteligente com Best Insertion", "crash": true}
+{"id": 2, "timestamp": "2026-03-14T17:04:00", "accepted": true, "score_before": 1311.899, "score_after": 1308.0592, "improvement_pct": 0.29, "feasible_count": 10, "description": "Geracao 1 - Modificacao: Substituicao da Construcao Inicial por Algoritmo Greedy Best Insertion.", "crash": false}
