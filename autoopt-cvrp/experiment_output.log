@@ -12,3 +12,498 @@ nohup: ignoring input
 [autoopt] Experimento #1
 ============================================================
 [autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 1 - Modificacao: Perturbacao Inteligente com Best Insertion
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: ModuleNotFoundError: No module named '_time'
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+[autoopt] Proposta: Geracao 1 - Modificacao: Perturbacao Inteligente com Best Insertion
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: TypeError: solve() takes 1 positional argument but 2 were given
+
+============================================================
+[autoopt] Experimento #2
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 1/3, aguardando 30s...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 2/3, aguardando 30s...
+[autoopt] Proposta: Geracao 1 - Modificacao: Substituicao da Construcao Inicial por Algoritmo Greedy Best Insertion.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 1308.06 (antes: 1311.90)
+[autoopt] Feasiveis: 10/10
+[autoopt] MELHORIA! -0.3%
+[master 99feb1e] exp#2: score 1311.9 -> 1308.1 (+0.3%)
+ 2 files changed, 146 insertions(+), 152 deletions(-)
+[autoopt] Commit: exp#2: score 1311.9 -> 1308.1 (+0.3%)
+
+============================================================
+[autoopt] Experimento #3
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geração 3: LNS Perturbation
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1308.06)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #4
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4: Introducao de Perturbacao LNS (Large Neighborhood Search)
+[autoopt] Avaliando nova versao...
+Distancia inicial (Greedy): 1302.78
+Nova melhor solucao encontrada: 1224.15
+Nova melhor solucao encontrada: 1183.05
+Nova melhor solucao encontrada: 1171.24
+Nova melhor solucao encontrada: 1148.84
+Nova melhor solucao encontrada: 1145.15
+Nova melhor solucao encontrada: 1108.70
+Nova melhor solucao encontrada: 1104.19
+Nova melhor solucao encontrada: 1074.86
+Nova melhor solucao encontrada: 1070.01
+Nova melhor solucao encontrada: 1066.22
+Nova melhor solucao encontrada: 1053.70
+Nova melhor solucao encontrada: 1046.68
+Nova melhor solucao encontrada: 1033.56
+Nova melhor solucao encontrada: 1029.80
+Nova melhor solucao encontrada: 1019.01
+Nova melhor solucao encontrada: 1019.01
+Nova melhor solucao encontrada: 1014.48
+Nova melhor solucao encontrada: 1013.62
+Nova melhor solucao encontrada: 1013.33
+Nova melhor solucao encontrada: 1011.94
+Nova melhor solucao encontrada: 1007.26
+Nova melhor solucao encontrada: 1006.93
+Nova melhor solucao encontrada: 1006.02
+Nova melhor solucao encontrada: 1005.78
+Nova melhor solucao encontrada: 1005.69
+Nova melhor solucao encontrada: 1005.38
+Distancia inicial (Greedy): 2057.36
+Nova melhor solucao encontrada: 1811.73
+Nova melhor solucao encontrada: 1796.58
+Nova melhor solucao encontrada: 1753.59
+Nova melhor solucao encontrada: 1738.81
+Nova melhor solucao encontrada: 1706.17
+Nova melhor solucao encontrada: 1702.96
+Nova melhor solucao encontrada: 1672.67
+Nova melhor solucao encontrada: 1669.11
+Nova melhor solucao encontrada: 1668.77
+Nova melhor solucao encontrada: 1667.24
+Nova melhor solucao encontrada: 1663.42
+Nova melhor solucao encontrada: 1663.39
+Nova melhor solucao encontrada: 1646.01
+Nova melhor solucao encontrada: 1642.80
+Nova melhor solucao encontrada: 1641.99
+Nova melhor solucao encontrada: 1635.29
+Nova melhor solucao encontrada: 1634.13
+Nova melhor solucao encontrada: 1623.99
+Nova melhor solucao encontrada: 1606.50
+Nova melhor solucao encontrada: 1605.74
+Nova melhor solucao encontrada: 1597.17
+Nova melhor solucao encontrada: 1592.73
+Nova melhor solucao encontrada: 1591.22
+Nova melhor solucao encontrada: 1589.99
+Nova melhor solucao encontrada: 1589.24
+Nova melhor solucao encontrada: 1588.01
+Distancia inicial (Greedy): 1944.37
+Nova melhor solucao encontrada: 1721.30
+Nova melhor solucao encontrada: 1660.27
+Nova melhor solucao encontrada: 1559.17
+Nova melhor solucao encontrada: 1541.06
+Nova melhor solucao encontrada: 1540.09
+Nova melhor solucao encontrada: 1537.27
+Nova melhor solucao encontrada: 1532.21
+Nova melhor solucao encontrada: 1526.12
+Nova melhor solucao encontrada: 1522.68
+Nova melhor solucao encontrada: 1520.65
+Nova melhor solucao encontrada: 1520.62
+Nova melhor solucao encontrada: 1504.95
+Nova melhor solucao encontrada: 1494.23
+Nova melhor solucao encontrada: 1472.19
+Nova melhor solucao encontrada: 1471.67
+Nova melhor solucao encontrada: 1469.69
+Nova melhor solucao encontrada: 1465.73
+Nova melhor solucao encontrada: 1454.85
+Nova melhor solucao encontrada: 1446.59
+Nova melhor solucao encontrada: 1442.49
+Nova melhor solucao encontrada: 1439.99
+Nova melhor solucao encontrada: 1439.97
+Distancia inicial (Greedy): 1807.24
+Nova melhor solucao encontrada: 1527.02
+Nova melhor solucao encontrada: 1477.08
+Nova melhor solucao encontrada: 1463.82
+Nova melhor solucao encontrada: 1405.19
+Nova melhor solucao encontrada: 1405.15
+Nova melhor solucao encontrada: 1397.88
+Nova melhor solucao encontrada: 1397.87
+Nova melhor solucao encontrada: 1394.90
+Nova melhor solucao encontrada: 1394.90
+Nova melhor solucao encontrada: 1394.07
+Nova melhor solucao encontrada: 1386.06
+Nova melhor solucao encontrada: 1383.10
+Nova melhor solucao encontrada: 1382.76
+Nova melhor solucao encontrada: 1382.76
+Nova melhor solucao encontrada: 1382.76
+Distancia inicial (Greedy): 1882.83
+Nova melhor solucao encontrada: 1481.48
+Nova melhor solucao encontrada: 1434.89
+Nova melhor solucao encontrada: 1407.57
+Nova melhor solucao encontrada: 1406.44
+Nova melhor solucao encontrada: 1376.55
+Nova melhor solucao encontrada: 1356.31
+Nova melhor solucao encontrada: 1344.16
+Nova melhor solucao encontrada: 1341.79
+Nova melhor solucao encontrada: 1303.25
+Nova melhor solucao encontrada: 1287.18
+Nova melhor solucao encontrada: 1285.22
+Nova melhor solucao encontrada: 1283.59
+Nova melhor solucao encontrada: 1280.82
+Nova melhor solucao encontrada: 1273.11
+Nova melhor solucao encontrada: 1270.31
+Nova melhor solucao encontrada: 1262.76
+Nova melhor solucao encontrada: 1259.92
+Nova melhor solucao encontrada: 1251.96
+Nova melhor solucao encontrada: 1250.20
+Nova melhor solucao encontrada: 1246.29
+Nova melhor solucao encontrada: 1246.29
+Nova melhor solucao encontrada: 1240.70
+Nova melhor solucao encontrada: 1238.78
+Nova melhor solucao encontrada: 1238.67
+Nova melhor solucao encontrada: 1237.90
+Nova melhor solucao encontrada: 1233.84
+Nova melhor solucao encontrada: 1233.25
+Nova melhor solucao encontrada: 1225.64
+Distancia inicial (Greedy): 1797.17
+Nova melhor solucao encontrada: 1592.51
+Nova melhor solucao encontrada: 1574.41
+Nova melhor solucao encontrada: 1568.73
+Nova melhor solucao encontrada: 1422.09
+Nova melhor solucao encontrada: 1417.28
+Nova melhor solucao encontrada: 1413.73
+Nova melhor solucao encontrada: 1408.81
+Nova melhor solucao encontrada: 1403.98
+Nova melhor solucao encontrada: 1398.62
+Nova melhor solucao encontrada: 1397.44
+Nova melhor solucao encontrada: 1388.02
+Nova melhor solucao encontrada: 1375.33
+Nova melhor solucao encontrada: 1368.70
+Nova melhor solucao encontrada: 1353.88
+Nova melhor solucao encontrada: 1350.83
+Nova melhor solucao encontrada: 1348.49
+Nova melhor solucao encontrada: 1347.58
+Nova melhor solucao encontrada: 1347.21
+Nova melhor solucao encontrada: 1343.12
+Nova melhor solucao encontrada: 1339.65
+Nova melhor solucao encontrada: 1338.24
+Nova melhor solucao encontrada: 1337.33
+Nova melhor solucao encontrada: 1336.72
+Nova melhor solucao encontrada: 1336.72
+Distancia inicial (Greedy): 2080.46
+Nova melhor solucao encontrada: 1588.34
+Nova melhor solucao encontrada: 1552.90
+Nova melhor solucao encontrada: 1543.84
+Nova melhor solucao encontrada: 1536.69
+Nova melhor solucao encontrada: 1512.73
+Nova melhor solucao encontrada: 1505.78
+Nova melhor solucao encontrada: 1499.42
+Nova melhor solucao encontrada: 1487.64
+Nova melhor solucao encontrada: 1486.22
+Nova melhor solucao encontrada: 1478.35
+Nova melhor solucao encontrada: 1473.74
+Nova melhor solucao encontrada: 1473.74
+Nova melhor solucao encontrada: 1461.64
+Nova melhor solucao encontrada: 1459.57
+Nova melhor solucao encontrada: 1459.57
+Nova melhor solucao encontrada: 1457.16
+Nova melhor solucao encontrada: 1451.95
+Nova melhor solucao encontrada: 1451.08
+Nova melhor solucao encontrada: 1451.08
+Distancia inicial (Greedy): 1643.93
+Nova melhor solucao encontrada: 1485.72
+Nova melhor solucao encontrada: 1433.67
+Nova melhor solucao encontrada: 1341.73
+Nova melhor solucao encontrada: 1289.68
+Nova melhor solucao encontrada: 1288.73
+Nova melhor solucao encontrada: 1286.24
+Nova melhor solucao encontrada: 1285.90
+Nova melhor solucao encontrada: 1283.10
+Nova melhor solucao encontrada: 1275.48
+Nova melhor solucao encontrada: 1273.69
+Nova melhor solucao encontrada: 1270.96
+Nova melhor solucao encontrada: 1270.54
+Nova melhor solucao encontrada: 1267.17
+Nova melhor solucao encontrada: 1266.03
+Nova melhor solucao encontrada: 1264.70
+Nova melhor solucao encontrada: 1256.57
+Nova melhor solucao encontrada: 1249.99
+Nova melhor solucao encontrada: 1249.99
+Nova melhor solucao encontrada: 1248.15
+Nova melhor solucao encontrada: 1248.15
+Nova melhor solucao encontrada: 1247.40
+Nova melhor solucao encontrada: 1247.40
+Distancia inicial (Greedy): 1929.20
+Nova melhor solucao encontrada: 1689.52
+Nova melhor solucao encontrada: 1569.31
+Nova melhor solucao encontrada: 1515.69
+Nova melhor solucao encontrada: 1489.84
+Nova melhor solucao encontrada: 1458.72
+Nova melhor solucao encontrada: 1436.43
+Nova melhor solucao encontrada: 1417.78
+Nova melhor solucao encontrada: 1415.51
+Nova melhor solucao encontrada: 1410.33
+Nova melhor solucao encontrada: 1409.48
+Nova melhor solucao encontrada: 1394.78
+Nova melhor solucao encontrada: 1361.47
+Nova melhor solucao encontrada: 1356.90
+Nova melhor solucao encontrada: 1349.52
+Nova melhor solucao encontrada: 1345.38
+Nova melhor solucao encontrada: 1344.93
+Nova melhor solucao encontrada: 1344.74
+Nova melhor solucao encontrada: 1344.45
+Nova melhor solucao encontrada: 1344.25
+Nova melhor solucao encontrada: 1344.25
+Nova melhor solucao encontrada: 1342.88
+Nova melhor solucao encontrada: 1338.41
+Nova melhor solucao encontrada: 1338.11
+Nova melhor solucao encontrada: 1336.36
+Nova melhor solucao encontrada: 1334.85
+Nova melhor solucao encontrada: 1333.27
+Nova melhor solucao encontrada: 1331.21
+Nova melhor solucao encontrada: 1331.21
+Distancia inicial (Greedy): 1408.52
+Nova melhor solucao encontrada: 1132.11
+Nova melhor solucao encontrada: 1107.65
+Nova melhor solucao encontrada: 1085.83
+Nova melhor solucao encontrada: 1085.76
+Nova melhor solucao encontrada: 1082.35
+Nova melhor solucao encontrada: 1080.78
+Nova melhor solucao encontrada: 1076.33
+Nova melhor solucao encontrada: 1076.33
+Nova melhor solucao encontrada: 1076.33
+[autoopt] Score: 50000.00 (antes: 1308.06)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #5
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 6 - LNS Perturbation Enhanced
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: ValueError: [0, 7, 29, 44, 14, 46, 47, 0] is not in list
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Falha na comunicacao. Pulando experimento.
+
+============================================================
+[autoopt] Experimento #6
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 12 - Melhoria Local com Relocate Intra-Rota (Or-opt Intra)
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1308.06)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #7
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 2 - Modificacao: Adicao do Operador Cross-Exchange Completo.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 1331.54 (antes: 1308.06)
+[autoopt] Feasiveis: 10/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #8
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Gerar instância aleatória (pode ser substituído por instância real)
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: AttributeError: module 'heuristic_tmp' has no attribute 'solve'
+[autoopt] Proposta: Função de conveniência no nível do módulo para resolver o problema VRP.
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: TypeError: 'dict' object cannot be interpreted as an integer
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Falha na comunicacao. Pulando experimento.
+
+============================================================
+[autoopt] Experimento #9
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 2 - Modificacao: Adicao de Operador de Recombinacao de Rotas (Route Recombination).
+[autoopt] Avaliando nova versao...
+[DEBUG] Distancia inicial: 1302.78
+[DEBUG] Nova melhor: 1163.08
+[DEBUG] Nova melhor: 1139.92
+[DEBUG] Nova melhor: 1139.06
+[DEBUG] Nova melhor: 1124.82
+[DEBUG] Nova melhor: 1105.26
+[DEBUG] Nova melhor: 1093.50
+[DEBUG] Nova melhor: 1089.46
+[DEBUG] Nova melhor: 1068.25
+[DEBUG] Nova melhor: 1056.38
+[DEBUG] Distancia inicial: 2057.36
+[DEBUG] Nova melhor: 1908.52
+[DEBUG] Nova melhor: 1841.51
+[DEBUG] Nova melhor: 1812.79
+[DEBUG] Nova melhor: 1789.87
+[DEBUG] Nova melhor: 1768.08
+[DEBUG] Nova melhor: 1725.81
+[DEBUG] Distancia inicial: 1944.37
+[DEBUG] Nova melhor: 1627.66
+[DEBUG] Nova melhor: 1584.64
+[DEBUG] Nova melhor: 1539.39
+[DEBUG] Nova melhor: 1487.15
+[DEBUG] Nova melhor: 1484.92
+[DEBUG] Nova melhor: 1469.84
+[DEBUG] Distancia inicial: 1807.24
+[DEBUG] Nova melhor: 1542.12
+[DEBUG] Nova melhor: 1526.80
+[DEBUG] Nova melhor: 1504.20
+[DEBUG] Nova melhor: 1502.19
+[DEBUG] Nova melhor: 1469.09
+[DEBUG] Nova melhor: 1452.12
+[DEBUG] Nova melhor: 1405.70
+[DEBUG] Distancia inicial: 1882.83
+[DEBUG] Nova melhor: 1483.55
+[DEBUG] Nova melhor: 1463.14
+[DEBUG] Nova melhor: 1408.17
+[DEBUG] Nova melhor: 1366.79
+[DEBUG] Nova melhor: 1356.31
+[DEBUG] Nova melhor: 1332.58
+[DEBUG] Nova melhor: 1328.67
+[DEBUG] Nova melhor: 1259.95
+[DEBUG] Distancia inicial: 1797.17
+[DEBUG] Nova melhor: 1521.61
+[DEBUG] Nova melhor: 1492.55
+[DEBUG] Nova melhor: 1383.22
+[DEBUG] Distancia inicial: 2080.46
+[DEBUG] Nova melhor: 1653.37
+[DEBUG] Nova melhor: 1575.68
+[DEBUG] Nova melhor: 1543.31
+[DEBUG] Nova melhor: 1519.51
+[DEBUG] Distancia inicial: 1643.93
+[DEBUG] Nova melhor: 1479.67
+[DEBUG] Nova melhor: 1476.56
+[DEBUG] Nova melhor: 1415.73
+[DEBUG] Nova melhor: 1409.82
+[DEBUG] Nova melhor: 1300.18
+[DEBUG] Nova melhor: 1284.27
+[DEBUG] Distancia inicial: 1929.20
+[DEBUG] Nova melhor: 1544.14
+[DEBUG] Nova melhor: 1522.04
+[DEBUG] Nova melhor: 1478.93
+[DEBUG] Nova melhor: 1468.66
+[DEBUG] Nova melhor: 1436.77
+[DEBUG] Nova melhor: 1427.33
+[DEBUG] Nova melhor: 1415.63
+[DEBUG] Nova melhor: 1394.80
+[DEBUG] Distancia inicial: 1408.52
+[DEBUG] Nova melhor: 1181.92
+[DEBUG] Nova melhor: 1100.37
+[autoopt] Score: 1359.98 (antes: 1308.06)
+[autoopt] Feasiveis: 10/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #10
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 2 - Modificacao: Adicao do operador 3-opt intra-rota e melhoria da estrategia de perturbacao (Strong Shake).
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: IndexError: list index out of range
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 2/3, aguardando 30s...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Falha na comunicacao. Pulando experimento.
+
+============================================================
+[autoopt] Experimento #11
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 1/3, aguardando 30s...
+[autoopt] Proposta: Geracao 2 - Modificacao: Implementacao de 2-opt* Inter-Rota mais Eficiente e Robusta.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 1305.81 (antes: 1308.06)
+[autoopt] Feasiveis: 10/10
+[autoopt] MELHORIA! -0.2%
+[master b178639] exp#11: score 1308.1 -> 1305.8 (+0.2%)
+ 2 files changed, 34 insertions(+), 38 deletions(-)
+[autoopt] Commit: exp#11: score 1308.1 -> 1305.8 (+0.2%)
+
+============================================================
+[autoopt] Experimento #12
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 1/3, aguardando 30s...
+[autoopt] Proposta: Geracao X - Modificacao: [Descreva a mudanca aqui]
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Falha na comunicacao. Pulando experimento.
+
+============================================================
+[autoopt] Experimento #13
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 1/3, aguardando 30s...
+[autoopt] Proposta: Geracao 3 - Modificacao: Adicao de Operador Relocate (Single Node) e Melhorias na Perturbacao.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 2105.22 (antes: 1305.81)
+[autoopt] Feasiveis: 8/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #14
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 3 - Modificacao: Corrigir relocate_segment quebrado e adicionar operador OR-opt (1-0-1 cross-exchange).
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 1323.18 (antes: 1305.81)
+[autoopt] Feasiveis: 10/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #15
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 3 - Modificacao: Correcao da Implementacao do Operador 2-opt* Inter-Rota.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1305.81)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #16
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 3 - Modificacao: Implementacao de 1-0 Exchange (Relocate) e 2-opt Best-Improvement.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 5236.21 (antes: 1305.81)
+[autoopt] Feasiveis: 1/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #17
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 3 - Modificacao: Perturbacao Fortalecida com Destroy-and-Repair Multi-Rota.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1305.81)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #18
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 3 - Modificacao: Correcao e Otimizacao do Operador Relocate (Move) Inter-Rota.
+[autoopt] Avaliando nova versao...

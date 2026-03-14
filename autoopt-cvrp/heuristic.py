@@ -1,14 +1,15 @@
 """
-Geracao 2 - Modificacao: Implementacao de 2-opt* Inter-Rota mais Eficiente e Robusta.
+Geracao 3 - Modificacao: Correcao e Otimizacao do Operador Relocate (Move) Inter-Rota.
 
-Motivo da mudanca: A analise do codigo anterior revela que a implementacao de 2-opt* (cross-exchange)
-estava incompleta e computacionalmente cara, pois recriava as rotas inteiras dentro do loop interno
-e verificava a capacidade recalcando somas de demandas.
+Motivo da mudanca: A analise do codigo revela que o operador relocate_segment estava incompleto
+e com logica truncada, impossibilitando sua execucao correta. O operador relocate (move) e fundamental
+para CVRP pois permite transferir clientes entre rotas, frequentemente encontrando solucoes melhores
+que apenas rearranjos intra-rota.
 A nova versao:
-1. Implementa corretamente o 2-opt* trocando apenas os segmentos finais das rotas (inversao de sufixos).
-2. Utiliza pre-calculo de cargas (loads) para evitar recalculos O(N) dentro dos loops de verificacao.
-3. O 2-opt* e um operador poderoso para CVRP pois permite reequilibrar rotas sem mudar a estrutura interna,
-   o que frequentemente reduz a distancia total ao conectar rotas de forma mais eficiente.
+1. Implementa corretamente o relocate movendo um ou dois clientes consecutivos entre rotas.
+2. Calcula ganho de distancia em O(1) sem reconstruir rotas.
+3. Verifica capacidade de forma eficiente.
+4. Utiliza estrategia de melhor vizinho para maior estabilidade.
 """
 
 import math
@@ -19,19 +20,15 @@ def euclidean_distance(p1, p2):
     return math.sqrt((p1[0] - p2[0])**2 + (p1[1] - p2[1])**2)
 
 def solve(instance: dict, time_limit: float = 30.0) -> list:
-    """
-    Resolve a instancia CVRP e retorna uma lista de rotas.
-    """
     t_start = time.time()
     n = instance["n"]
     capacity = instance["capacity"]
     depot = instance["depot"]
-    coords = [depot] + instance["coords"]  # no 0 = deposito
-    demands = [0] + instance["demands"]    # demanda 0 do deposito
+    coords = [depot] + instance["coords"]
+    demands = [0] + instance["demands"]
     
     random.seed(42)
 
-    # ============ Pre-computacao de Distancias (Otimizacao) ============
     dist_matrix = [[0.0] * (n + 1) for _ in range(n + 1)]
     for i in range(n + 1):
         for j in range(i + 1, n + 1):
@@ -42,7 +39,6 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
     def get_dist(i, j):
         return dist_matrix[i][j]
 
-    # ============ FASE 1: Construcao Greedy Best Insertion ============
     def construct_solution():
         unassigned = set(range(1, n + 1))
         routes = []
@@ -102,16 +98,19 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
         
         return routes
 
-    def route_distance(route: list) -> float:
+    def route_distance(route):
         dist = 0.0
         for i in range(len(route) - 1):
             dist += get_dist(route[i], route[i + 1])
         return dist
 
-    def total_distance(routes: list) -> float:
+    def total_distance(routes):
         return sum(route_distance(r) for r in routes)
 
-    def two_opt(route: list) -> list:
+    def route_load(route, demands):
+        return sum(demands[node] for node in route[1:-1])
+
+    def two_opt(route):
         improved = True
         while improved:
             improved = False
@@ -131,152 +130,192 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
                     break
         return route
 
-    def apply_two_opt(routes: list) -> list:
+    def apply_two_opt(routes):
         for route in routes:
             two_opt(route)
         return routes
 
-    def relocate_segment(routes: list, demands: list, capacity: float) -> list:
+    def relocate_customer(routes, demands, capacity):
         improved = True
-        max_iterations = 30
-        iteration = 0
+        max_passes = 15
+        passes = 0
         
-        while improved and iteration < max_iterations and time.time() < t_start + time_limit - 0.3:
+        while improved and passes < max_passes and time.time() < t_start + time_limit - 0.3:
             improved = False
-            iteration += 1
+            passes += 1
             
-            for from_route_idx in range(len(routes)):
-                from_route = routes[from_route_idx]
-                
+            best_gain = 0
+            best_move = None
+            
+            for from_r in range(len(routes)):
+                from_route = routes[from_r]
                 if len(from_route) < 4:
                     continue
-                
-                for seg_len in range(1, 4):
-                    if time.time() > t_start + time_limit - 0.3:
-                        break
                     
-                    for i in range(1, len(from_route) - seg_len):
-                        segment = from_route[i:i + seg_len]
-                        segment_demand = sum(demands[c] for c in segment)
-                        
-                        prev_node = from_route[i - 1]
-                        next_node = from_route[i + seg_len]
-                        removal_cost = (get_dist(prev_node, segment[0]) +
-                                       get_dist(segment[-1], next_node) -
-                                       get_dist(prev_node, next_node))
-                        
-                        for to_route_idx in range(len(routes)):
-                            if to_route_idx == from_route_idx:
-                                continue
-                            
-                            to_route = routes[to_route_idx]
-                            to_route_load = sum(demands[node] for node in to_route[1:-1])
-                            
-                            if to_route_load + segment_demand > capacity:
-                                continue
-                            
-                            for j in range(1, len(to_route)):
-                                prev_b = to_route[j - 1]
-                                next_b = to_route[j]
-                                
-                                insertion_cost = (get_dist(prev_b, segment[0]) +
-                                                   get_dist(segment[-1], next_b) -
-                                                   get_dist(prev_b, next_b))
-                                
-                                gain = removal_cost - insertion_cost
-                                
-                                if gain > 1e-9:
-                                    from_route[i:i + seg_len] = []
-                                    to_route[j:j] = segment
-                                    improved = True
-                                    break
-                            
-                            if improved:
-                                break
-                        
-                        if improved:
-                            break
-                    
-                    if improved:
-                        break
+                from_load = route_load(from_route, demands)
                 
-                if improved:
-                    break
+                for i in range(1, len(from_route) - 1):
+                    client = from_route[i]
+                    client_demand = demands[client]
+                    prev_node = from_route[i - 1]
+                    next_node = from_route[i + 1]
+                    
+                    removal_cost = get_dist(prev_node, client) + get_dist(client, next_node) - get_dist(prev_node, next_node)
+                    
+                    for to_r in range(len(routes)):
+                        if to_r == from_r:
+                            continue
+                        
+                        to_route = routes[to_r]
+                        to_load = route_load(to_route, demands)
+                        
+                        if to_load + client_demand > capacity:
+                            continue
+                        
+                        for j in range(1, len(to_route)):
+                            prev_b = to_route[j - 1]
+                            next_b = to_route[j]
+                            
+                            insertion_cost = get_dist(prev_b, client) + get_dist(client, next_b) - get_dist(prev_b, next_b)
+                            gain = removal_cost - insertion_cost
+                            
+                            if gain > best_gain + 1e-10:
+                                best_gain = gain
+                                best_move = (from_r, i, to_r, j)
+            
+            if best_move:
+                from_r, i, to_r, j = best_move
+                client = routes[from_r][i]
+                routes[from_r].pop(i)
+                routes[to_r].insert(j, client)
+                improved = True
         
         return routes
 
-    def exchange(routes: list, demands: list, capacity: float) -> list:
+    def relocate_two_consecutive(routes, demands, capacity):
         improved = True
-        max_iterations = 20
-        iteration = 0
+        max_passes = 8
+        passes = 0
         
-        while improved and iteration < max_iterations and time.time() < t_start + time_limit - 0.3:
+        while improved and passes < max_passes and time.time() < t_start + time_limit - 0.3:
             improved = False
-            iteration += 1
+            passes += 1
+            
+            best_gain = 0
+            best_move = None
+            
+            for from_r in range(len(routes)):
+                from_route = routes[from_r]
+                if len(from_route) < 5:
+                    continue
+                    
+                from_load = route_load(from_route, demands)
+                
+                for i in range(1, len(from_route) - 2):
+                    c1, c2 = from_route[i], from_route[i + 1]
+                    seg_demand = demands[c1] + demands[c2]
+                    
+                    prev_node = from_route[i - 1]
+                    next_node = from_route[i + 2]
+                    
+                    removal_cost = (get_dist(prev_node, c1) + get_dist(c1, c2) + 
+                                   get_dist(c2, next_node) - get_dist(prev_node, next_node))
+                    
+                    if from_load - seg_demand < 0:
+                        continue
+                        
+                    for to_r in range(len(routes)):
+                        if to_r == from_r:
+                            continue
+                        
+                        to_route = routes[to_r]
+                        to_load = route_load(to_route, demands)
+                        
+                        if to_load + seg_demand > capacity:
+                            continue
+                        
+                        for j in range(1, len(to_route)):
+                            prev_b = to_route[j - 1]
+                            next_b = to_route[j]
+                            
+                            insertion_cost = (get_dist(prev_b, c1) + get_dist(c1, c2) + 
+                                             get_dist(c2, next_b) - get_dist(prev_b, next_b))
+                            
+                            gain = removal_cost - insertion_cost
+                            
+                            if gain > best_gain + 1e-10:
+                                best_gain = gain
+                                best_move = (from_r, i, to_r, j)
+            
+            if best_move:
+                from_r, i, to_r, j = best_move
+                c1, c2 = routes[from_r][i], routes[from_r][i + 1]
+                routes[from_r].pop(i + 1)
+                routes[from_r].pop(i)
+                routes[to_r].insert(j, c1)
+                routes[to_r].insert(j + 1, c2)
+                improved = True
+        
+        return routes
+
+    def exchange(routes, demands, capacity):
+        improved = True
+        max_passes = 12
+        passes = 0
+        
+        while improved and passes < max_passes and time.time() < t_start + time_limit - 0.3:
+            improved = False
+            passes += 1
+            
+            best_gain = 0
+            best_swap = None
             
             for a in range(len(routes)):
                 for b in range(a + 1, len(routes)):
                     route_a = routes[a]
                     route_b = routes[b]
                     
-                    load_a = sum(demands[node] for node in route_a[1:-1])
-                    load_b = sum(demands[node] for node in route_b[1:-1])
+                    load_a = route_load(route_a, demands)
+                    load_b = route_load(route_b, demands)
                     
                     for i in range(1, len(route_a) - 1):
-                        if time.time() > t_start + time_limit - 0.3:
-                            break
-                        
                         for j in range(1, len(route_b) - 1):
-                            customer_a = route_a[i]
-                            customer_b = route_b[j]
+                            ca, cb = route_a[i], route_b[j]
                             
-                            new_load_a = load_a - demands[customer_a] + demands[customer_b]
-                            new_load_b = load_b - demands[customer_b] + demands[customer_a]
-                            
-                            if new_load_a > capacity or new_load_b > capacity:
+                            if (load_a - demands[ca] + demands[cb] > capacity or
+                                load_b - demands[cb] + demands[ca] > capacity):
                                 continue
                             
-                            prev_a = route_a[i - 1]
-                            next_a = route_a[i + 1]
-                            prev_b = route_b[j - 1]
-                            next_b = route_b[j + 1]
+                            prev_a, next_a = route_a[i - 1], route_a[i + 1]
+                            prev_b, next_b = route_b[j - 1], route_b[j + 1]
                             
-                            current_dist = (get_dist(prev_a, customer_a) +
-                                           get_dist(customer_a, next_a) +
-                                           get_dist(prev_b, customer_b) +
-                                           get_dist(customer_b, next_b))
+                            current_dist = (get_dist(prev_a, ca) + get_dist(ca, next_a) +
+                                          get_dist(prev_b, cb) + get_dist(cb, next_b))
                             
-                            new_dist = (get_dist(prev_a, customer_b) +
-                                       get_dist(customer_b, next_a) +
-                                       get_dist(prev_b, customer_a) +
-                                       get_dist(customer_a, next_b))
+                            new_dist = (get_dist(prev_a, cb) + get_dist(cb, next_a) +
+                                       get_dist(prev_b, ca) + get_dist(ca, next_b))
                             
-                            if new_dist < current_dist - 1e-9:
-                                route_a[i] = customer_b
-                                route_b[j] = customer_a
-                                improved = True
-                                break
-                        
-                        if improved:
-                            break
-                    
-                    if improved:
-                        break
-                
-                if improved:
-                    break
+                            gain = current_dist - new_dist
+                            
+                            if gain > best_gain + 1e-10:
+                                best_gain = gain
+                                best_swap = (a, i, b, j)
+            
+            if best_swap:
+                a, i, b, j = best_swap
+                routes[a][i], routes[b][j] = routes[b][j], routes[a][i]
+                improved = True
         
         return routes
 
-    # ============ FASE 5: 2-opt* Inter-rotas (Corrigido e Otimizado) ============
-    def two_opt_star(routes: list, demands: list, capacity: float) -> list:
+    def two_opt_star(routes, demands, capacity):
         improved = True
-        max_iterations = 20
-        iteration = 0
+        max_passes = 10
+        passes = 0
         
-        while improved and iteration < max_iterations and time.time() < t_start + time_limit - 0.3:
+        while improved and passes < max_passes and time.time() < t_start + time_limit - 0.3:
             improved = False
-            iteration += 1
+            passes += 1
             
             for a in range(len(routes)):
                 for b in range(a + 1, len(routes)):
@@ -286,49 +325,29 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
                     if len(route_a) < 3 or len(route_b) < 3:
                         continue
                     
-                    # Pre-calcular cargas
-                    load_a = sum(demands[node] for node in route_a[1:-1])
-                    load_b = sum(demands[node] for node in route_b[1:-1])
+                    load_a = route_load(route_a, demands)
+                    load_b = route_load(route_b, demands)
                     
                     for i in range(1, len(route_a) - 2):
-                        if time.time() > t_start + time_limit - 0.3:
-                            break
-                        
                         for j in range(1, len(route_b) - 2):
                             a1, a2 = route_a[i], route_a[i + 1]
                             b1, b2 = route_b[j], route_b[j + 1]
                             
-                            current_dist = (get_dist(a1, a2) +
-                                          get_dist(b1, b2))
-                            
-                            new_dist = (get_dist(a1, b1) +
-                                      get_dist(a2, b2))
+                            current_dist = get_dist(a1, a2) + get_dist(b1, b2)
+                            new_dist = get_dist(a1, b1) + get_dist(a2, b2)
                             
                             if new_dist >= current_dist - 1e-9:
                                 continue
                             
-                            # Calcular demanda dos segmentos a serem trocados (sufixos)
-                            # Segmento A: de a2 ate o final (antes do deposito)
-                            # Segmento B: de b2 ate o final (antes do deposito)
                             segment_a = route_a[i + 1:-1]
                             segment_b = route_b[j + 1:-1]
                             
                             load_segment_a = sum(demands[node] for node in segment_a)
                             load_segment_b = sum(demands[node] for node in segment_b)
                             
-                            new_load_a = load_a - load_segment_a + load_segment_b
-                            new_load_b = load_b - load_segment_b + load_segment_a
-                            
-                            if new_load_a > capacity or new_load_b > capacity:
+                            if (load_a - load_segment_a + load_segment_b > capacity or
+                                load_b - load_segment_b + load_segment_a > capacity):
                                 continue
-                            
-                            # Aplicar troca de sufixos (inversao de direcao)
-                            # Rota A vira: Inicio -> ... -> a1 -> b1 -> ... -> b2 -> 0
-                            # Rota B vira: Inicio -> ... -> b1 -> a1 -> ... -> a2 -> 0
-                            # Nota: Os segmentos sao invertidos na reconstrucao para manter a ordem de visita
-                            
-                            # Nova Rota A: prefixo_a + [b1] + invertido(segmento_b) + [0]
-                            # Nova Rota B: prefixo_b + [a1] + invertido(segmento_a) + [0]
                             
                             new_route_a = route_a[:i + 1] + list(reversed(segment_b)) + [0]
                             new_route_b = route_b[:j + 1] + list(reversed(segment_a)) + [0]
@@ -349,7 +368,7 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
         
         return routes
 
-    def perturb_solution(routes: list, demands: list, capacity: float) -> list:
+    def perturb_solution(routes, demands, capacity):
         if len(routes) < 2:
             return routes
             
@@ -369,7 +388,7 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
             target_route_idx = random.randint(0, len(routes) - 1)
             target_route = routes[target_route_idx]
             
-            current_load = sum(demands[node] for node in target_route[1:-1])
+            current_load = route_load(target_route, demands)
             if current_load + demands[client] <= capacity:
                 pos = random.randint(1, len(target_route) - 1)
                 target_route.insert(pos, client)
@@ -377,7 +396,7 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
                 inserted = False
                 for idx in range(len(routes)):
                     r = routes[idx]
-                    load = sum(demands[node] for node in r[1:-1])
+                    load = route_load(r, demands)
                     if load + demands[client] <= capacity:
                         pos = random.randint(1, len(r) - 1)
                         r.insert(pos, client)
@@ -389,8 +408,6 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
 
         return routes
 
-    # ============ Execucao Principal com ILS ============
-    
     routes = construct_solution()
     
     best_routes = [list(r) for r in routes]
@@ -398,28 +415,58 @@ def solve(instance: dict, time_limit: float = 30.0) -> list:
     
     while time.time() < t_start + time_limit - 0.5:
         local_search_iterations = 0
-        max_local_iter = 8
+        max_local_iter = 10
         
         while local_search_iterations < max_local_iter and time.time() < t_start + time_limit - 0.5:
             routes_before = [list(r) for r in routes]
             dist_before = total_distance(routes)
             
             apply_two_opt(routes)
-            relocate_segment(routes, demands, capacity)
+            relocate_customer(routes, demands, capacity)
+            relocate_two_consecutive(routes, demands, capacity)
             exchange(routes, demands, capacity)
-            two_opt_star(routes, demands, capacity)
             
-            dist_after = total_distance(routes)
+            current_dist = total_distance(routes)
             
-            if dist_after >= dist_before - 1e-9:
+            if current_dist < best_dist - 1e-6:
+                best_dist = current_dist
+                best_routes = [list(r) for r in routes]
+            
+            if current_dist >= dist_before - 1e-6:
                 break
+                
             local_search_iterations += 1
         
+        if time.time() > t_start + time_limit - 0.5:
+            break
+            
+        if random.random() < 0.6:
+            routes = perturb_solution(routes, demands, capacity)
+        
         current_dist = total_distance(routes)
-        if current_dist < best_dist - 1e-9:
+        if current_dist < best_dist - 1e-6:
             best_dist = current_dist
             best_routes = [list(r) for r in routes]
-        
-        routes = perturb_solution(routes, demands, capacity)
     
     return best_routes
+
+def main():
+    instance = {
+        "n": 25,
+        "capacity": 50,
+        "depot": (0, 0),
+        "coords": [(random.randint(1, 100), random.randint(1, 100)) for _ in range(25)],
+        "demands": [random.randint(1, 10) for _ in range(25)]
+    }
+    
+    routes = solve(instance, time_limit=30.0)
+    
+    print(f"Numero de rotas: {len(routes)}")
+    print(f"Distancia total: {total_distance(routes):.2f}")
+    
+    for i, route in enumerate(routes):
+        load = route_load(route, [0] + instance["demands"])
+        print(f"Rota {i + 1}: {route} (Capacidade: {load}/{instance['capacity']})")
+
+if __name__ == "__main__":
+    main()
