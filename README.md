@@ -12,24 +12,6 @@ The AI doesn't just suggest ideas — it writes the code, gets scored, and learn
 - **`heuristic.py`** — the living code. Starts as a dumb greedy, gets rewritten experiment by experiment. **This file is edited by the agent.**
 - **`run_experiment.py`** — the orchestrator. Sends current code + history to the LLM, evaluates proposals, decides accept/reject, commits. Not modified by the agent.
 
-## How it works
-
-```mermaid
-graph TD
-    A["🤖 Local LLM (Ollama)"] -->|"propose code change"| B["📝 heuristic.py"]
-    B -->|"evaluate on\nbenchmark instances"| C{"score\nimproved?"}
-    C -->|"✅ Yes"| D["git commit + log"]
-    C -->|"❌ No"| E["revert + log"]
-    D -->|"history + feedback"| A
-    E -->|"history + feedback"| A
-
-    style A fill:#4CAF50,stroke:#388E3C,color:#fff
-    style B fill:#2196F3,stroke:#1565C0,color:#fff
-    style C fill:#FF9800,stroke:#E65100,color:#fff
-    style D fill:#4CAF50,stroke:#388E3C,color:#fff
-    style E fill:#f44336,stroke:#c62828,color:#fff
-```
-
 ## The score
 
 The metric is **mean total distance** across a fixed set of 10 CVRP instances — lower is better.

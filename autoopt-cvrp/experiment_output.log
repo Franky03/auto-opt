@@ -507,3 +507,24 @@ Nova melhor solucao encontrada: 1076.33
 [autoopt] Pedindo proposta ao qwen-reasoning...
 [autoopt] Proposta: Geracao 3 - Modificacao: Correcao e Otimizacao do Operador Relocate (Move) Inter-Rota.
 [autoopt] Avaliando nova versao...
+[autoopt] Score: 1308.56 (antes: 1305.81)
+[autoopt] Feasiveis: 10/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #19
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 3 - Modificacao: Implementacao de Construcao Aleatorizada (Randomized Greedy) e Diversificacao Melhorada.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 1305.34 (antes: 1305.81)
+[autoopt] Feasiveis: 10/10
+[autoopt] MELHORIA! -0.0%
+[master b5ab3de] exp#19: score 1305.8 -> 1305.3 (+0.0%)
+ 2 files changed, 191 insertions(+), 231 deletions(-)
+[autoopt] Commit: exp#19: score 1305.8 -> 1305.3 (+0.0%)
+
+============================================================
+[autoopt] Experimento #20
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
