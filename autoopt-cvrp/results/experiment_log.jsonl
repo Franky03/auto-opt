@@ -11,3 +11,4 @@
 {"id": 11, "timestamp": "2026-03-14T00:44:38", "accepted": false, "score_before": 1531.6302, "score_after": 47961.7879, "improvement_pct": 0, "feasible_count": 10, "description": "Heuristica CVRP -- Geracao 5", "crash": false}
 {"id": 12, "timestamp": "2026-03-14T00:48:56", "accepted": false, "score_before": 1531.6302, "score_after": 0, "improvement_pct": 0, "feasible_count": 10, "description": "sem descricao", "crash": true}
 {"id": 13, "timestamp": "2026-03-14T00:49:54", "accepted": true, "score_before": 1531.6302, "score_after": 1529.8298, "improvement_pct": 0.12, "feasible_count": 10, "description": "Heuristica CVRP -- Geracao 5", "crash": false}
+{"id": 14, "timestamp": "2026-03-14T00:56:07", "accepted": true, "score_before": 1529.8298, "score_after": 1347.0347, "improvement_pct": 11.95, "feasible_count": 10, "description": "Heuristica CVRP -- Geracao 6", "crash": false}
