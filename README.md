@@ -24,7 +24,7 @@ The score reported in commits and logs is the **average Euclidean distance** acr
 
 The **Capacitated Vehicle Routing Problem** — a classic NP-hard problem in operations research. Given customers with demands and a fleet of capacity-limited vehicles, find the shortest routes from a depot that serve everyone.
 
-Starting from a naive Nearest Neighbor (score ~1723), the agent has run **98 experiments across 2 sessions**, accepting **8 improvements**:
+Starting from a naive Nearest Neighbor (score ~1723), the agent has run **122 experiments across 2 sessions**, accepting **9 improvements**:
 
 ```
 Run 1 (84 experiments, 6 accepted):
@@ -35,12 +35,13 @@ Run 1 (84 experiments, 6 accepted):
   exp#14: 1529.8 → 1347.0  (+11.9%)   inter-route operators
   exp#24: 1347.0 → 1312.0  (+2.6%)    ILS with Or-opt + Exchange
 
-Run 2 (ongoing):
+Run 2 (39 experiments, 3 accepted):
   exp#2:  1311.9 → 1308.1  (+0.3%)    greedy best insertion
   exp#11: 1308.1 → 1305.8  (+0.2%)    2-opt* inter-route
+  exp#19: 1305.8 → 1305.3  (+0.0%)    fine-tuning
 ```
 
-**Total improvement: ~24% reduction in distance**, fully autonomously. The heuristic went from a one-liner greedy to a full Iterated Local Search with Clarke-Wright construction, 2-opt, Or-opt, exchange operators, and 2-opt* cross-exchange — all written by a 27B parameter model running locally.
+**Total improvement: ~24% reduction in distance** (1723 → 1305), fully autonomously. The heuristic went from a one-liner greedy to a full Iterated Local Search with Clarke-Wright construction, 2-opt, Or-opt, exchange operators, and 2-opt* cross-exchange — all written by a 27B parameter model running locally.
 
 ## Quick start
 

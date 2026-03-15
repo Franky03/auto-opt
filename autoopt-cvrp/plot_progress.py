@@ -175,11 +175,20 @@ def build_timeline():
             else:
                 display_score = score
 
+            # Formata descricao no mesmo estilo dos commits git
+            score_before = entry.get("score_before", 0)
+            score_after = entry.get("score_after", 0)
+            if entry["accepted"] and score_before > 0 and score_after > 0:
+                imp_pct = (score_before - score_after) / score_before * 100
+                desc = f"{score_before:.1f} -> {score_after:.1f} (+{imp_pct:.1f}%)"
+            else:
+                desc = entry.get("description", "")[:60]
+
             timeline.append({
                 "global_id": global_id,
                 "score": display_score,
                 "accepted": entry["accepted"],
-                "description": entry.get("description", "")[:60],
+                "description": desc,
                 "is_baseline": False,
             })
             global_id += 1
@@ -207,6 +216,16 @@ def plot(timeline, output_file="progress.png"):
 
     best_score = float("inf")
 
+    # Calcula o range dos aceitos para definir limite de outlier
+    accepted_scores = [e["score"] for e in timeline if e["accepted"] and e["score"] is not None]
+    if accepted_scores:
+        score_min = min(accepted_scores)
+        score_max = max(accepted_scores)
+        score_range = score_max - score_min
+        outlier_threshold = score_max + score_range * 0.5
+    else:
+        outlier_threshold = float("inf")
+
     for entry in timeline:
         gid = entry["global_id"]
         score = entry["score"]
@@ -220,18 +239,18 @@ def plot(timeline, output_file="progress.png"):
             best_x.append(gid)
             best_y.append(best_score)
         elif not accepted:
-            if score is not None:
+            if score is not None and score <= outlier_threshold:
                 discarded_x.append(gid)
                 discarded_y.append(score)
-            else:
+            elif score is None:
                 # Rejeitado sem score conhecido - plota acima do best atual
-                # com pequeno offset aleatorio para visualizacao
                 import random
                 random.seed(gid)
                 if best_score < float("inf"):
                     fake_score = best_score * (1 + random.uniform(0.002, 0.015))
-                    discarded_x.append(gid)
-                    discarded_y.append(fake_score)
+                    if fake_score <= outlier_threshold:
+                        discarded_x.append(gid)
+                        discarded_y.append(fake_score)
 
     # Plota rejeitados (cinza claro)
     ax.scatter(discarded_x, discarded_y, c="lightgray", s=30, alpha=0.6,
@@ -247,8 +266,7 @@ def plot(timeline, output_file="progress.png"):
                label="Kept", edgecolors="white", linewidths=0.5)
 
     # Anotacoes nos aceitos
-    annotated = [(x, y) for x, y in zip(kept_x, kept_y)]
-    for i, entry in enumerate(timeline):
+    for entry in timeline:
         if entry["accepted"] and entry["score"] is not None:
             gid = entry["global_id"]
             score = entry["score"]
@@ -264,7 +282,6 @@ def plot(timeline, output_file="progress.png"):
             # Alterna posicao das anotacoes para evitar sobreposicao
             idx = kept_x.index(gid) if gid in kept_x else 0
             offset_y = 8 if idx % 2 == 0 else -14
-            rotation = 15 if idx % 2 == 0 else -10
 
             ax.annotate(
                 desc, (gid, score),
@@ -273,7 +290,7 @@ def plot(timeline, output_file="progress.png"):
                 fontsize=6.5,
                 color="#4CAF50",
                 alpha=0.85,
-                rotation=rotation,
+                rotation=45,
                 ha="left",
             )
 

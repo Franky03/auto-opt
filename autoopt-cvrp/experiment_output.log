@@ -528,3 +528,430 @@ Nova melhor solucao encontrada: 1076.33
 [autoopt] Experimento #20
 ============================================================
 [autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Implementacao Completa de 2-2 Exchange (Cross Exchange) e Correcao de Relocate Segment.
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: ValueError: empty range for randrange() (2, 2, 0)
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+[autoopt] Proposta: Geracao 4 - Modificacao: Implementacao Completa de 2-2 Exchange (Cross Exchange) e Correcao de Relocate Segment.
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: ValueError: empty range for randrange() (2, 2, 0)
+
+============================================================
+[autoopt] Experimento #21
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Operador Relocate Dedico e Perturbacao Ruin-and-Recreate Melhorada.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1305.34)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #22
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Construcao com Selecao Ponderada por Custo (Weighted Cost Selection).
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: IndexError: pop index out of range
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+
+============================================================
+[autoopt] Experimento #23
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+[autoopt] Proposta: Geracao 4 - Modificacao: Perturbação Inteligente com Reinserção Otimizada.
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: ValueError: empty range for randrange() (5, 4, -1)
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+
+============================================================
+[autoopt] Experimento #24
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Perturbação Inteligente com Inserção Gulosa (Smart Perturbation).
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 48123.56 (antes: 1305.34)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #25
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Implementacao de Perturbacao 'Worst Insertion Removal' com 'Greedy Reinsertion'.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: inf (antes: 1305.34)
+[autoopt] Feasiveis: 5/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #26
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 1/3, aguardando 30s...
+[autoopt] Proposta: Geracao 4 - Modificacao: Otimizacao da funcao 2-opt para convergencia completa sem breaks prematuros.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1305.34)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #27
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: sem descricao
+[autoopt] SyntaxError: expected an indented block after 'if' statement on line 2 (heuristic.py, line 2)
+[autoopt] Proposta: sem descricao
+[autoopt] SyntaxError: unexpected indent (heuristic.py, line 2)
+[autoopt] Proposta: sem descricao
+[autoopt] SyntaxError: unexpected indent (heuristic.py, line 2)
+
+============================================================
+[autoopt] Experimento #28
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Implementacao do Operador Cross Exchange (OR Exchange) para CVRP.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 26095.44 (antes: 1305.34)
+[autoopt] Feasiveis: 1/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #29
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Implementacao do Algoritmo de Varredura (Sweep Algorithm) para Construcao Inicial.
+[autoopt] Avaliando nova versao...
+Inicializacao (Sweep): 1488.60
+Inicializacao (Sweep): 2320.45
+Inicializacao (Sweep): 2413.89
+Inicializacao (Sweep): 1653.51
+Inicializacao (Sweep): 2192.43
+Inicializacao (Sweep): 1821.11
+Inicializacao (Sweep): 2242.40
+Inicializacao (Sweep): 1682.05
+Inicializacao (Sweep): 2198.04
+Inicializacao (Sweep): 1461.63
+[autoopt] Score: 1323.78 (antes: 1305.34)
+[autoopt] Feasiveis: 10/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #30
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Perturbacao Agressiva com Reinsercao Inteligente (Best Insertion).
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1305.34)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #31
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Perturbação Inteligente com Best Insertion e Critério de Aceitação.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 1348.62 (antes: 1305.34)
+[autoopt] Feasiveis: 10/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #32
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 1/3, aguardando 30s...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 2/3, aguardando 30s...
+[autoopt] Proposta: Geracao 4 - Modificacao: 2-opt Completo com 'Best Improvement' e Perturbação Suave.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1305.34)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #33
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Implementacao de Consolidacao de Rotas e Rebalanceamento Inteligente.
+[autoopt] Avaliando nova versao...
+Score inicial (construcao): 1509.8523 | Rotas: 9
+Iter 1: 1201.4411 | Rotas: 9
+Iter 2: 1161.7695 | Rotas: 9
+Iter 53: 1148.9187 | Rotas: 9
+Iter 54: 1135.8821 | Rotas: 9
+Iter 1081: 1087.4718 | Rotas: 9
+Iter 1082: 1080.8697 | Rotas: 9
+Iter 1083: 1080.5866 | Rotas: 9
+Iter 1536: 1063.7097 | Rotas: 9
+Iter 1537: 1058.4975 | Rotas: 9
+Iter 1689: 1055.0531 | Rotas: 9
+Iter 1690: 1045.5348 | Rotas: 9
+Iter 1691: 1039.5338 | Rotas: 9
+Iter 1993: 1035.2944 | Rotas: 9
+Iter 2444: 1031.0022 | Rotas: 9
+Iter 4247: 1021.7445 | Rotas: 9
+Iter 10400: 1019.6109 | Rotas: 9
+Score final: 1019.6109 | Rotas: 9
+Iteracoes de intensificacao: 33299
+Score inicial (construcao): 2230.4142 | Rotas: 11
+Iter 1: 1791.9935 | Rotas: 11
+Iter 2: 1739.1011 | Rotas: 11
+Iter 3: 1730.4212 | Rotas: 11
+Iter 55: 1728.2112 | Rotas: 11
+Iter 939: 1708.4254 | Rotas: 11
+Iter 940: 1697.1700 | Rotas: 11
+Iter 3636: 1685.6638 | Rotas: 11
+Iter 3637: 1669.7963 | Rotas: 11
+Iter 5142: 1664.6825 | Rotas: 11
+Iter 5143: 1664.5245 | Rotas: 11
+Iter 10995: 1663.9263 | Rotas: 11
+Iter 14147: 1651.5919 | Rotas: 11
+Iter 14148: 1639.9085 | Rotas: 11
+Score final: 1639.9085 | Rotas: 11
+Iteracoes de intensificacao: 39849
+Score inicial (construcao): 1745.3048 | Rotas: 8
+Iter 1: 1645.5710 | Rotas: 8
+Iter 2: 1567.9639 | Rotas: 8
+Iter 3: 1565.6113 | Rotas: 8
+Iter 313: 1534.8736 | Rotas: 8
+Iter 315: 1512.9558 | Rotas: 8
+Iter 317: 1496.8809 | Rotas: 8
+Iter 4836: 1480.7794 | Rotas: 9
+Iter 6491: 1480.4950 | Rotas: 9
+Iter 6492: 1471.0931 | Rotas: 9
+Iter 6493: 1468.2101 | Rotas: 9
+Iter 6494: 1465.1303 | Rotas: 9
+Iter 6646: 1460.8450 | Rotas: 9
+Iter 6647: 1460.8141 | Rotas: 9
+Iter 8448: 1458.5762 | Rotas: 9
+Score final: 1458.5762 | Rotas: 9
+Iteracoes de intensificacao: 37852
+Score inicial (construcao): 1822.4125 | Rotas: 11
+Iter 1: 1530.5162 | Rotas: 11
+Iter 2: 1523.5744 | Rotas: 11
+Iter 54: 1518.5144 | Rotas: 11
+Iter 111: 1514.0911 | Rotas: 11
+Iter 112: 1453.5965 | Rotas: 11
+Iter 113: 1450.0423 | Rotas: 11
+Iter 586: 1449.5046 | Rotas: 11
+Iter 814: 1433.3519 | Rotas: 11
+Iter 815: 1423.8574 | Rotas: 11
+Iter 816: 1417.9228 | Rotas: 11
+Iter 947: 1416.0445 | Rotas: 11
+Iter 948: 1413.8929 | Rotas: 11
+Iter 12045: 1411.9234 | Rotas: 11
+Iter 12197: 1411.7446 | Rotas: 11
+Iter 12348: 1408.8203 | Rotas: 11
+Iter 12349: 1403.7914 | Rotas: 11
+Iter 12500: 1403.1316 | Rotas: 11
+Iter 12501: 1399.7431 | Rotas: 11
+Iter 12954: 1399.2708 | Rotas: 11
+Score final: 1399.2708 | Rotas: 11
+Iteracoes de intensificacao: 39037
+Score inicial (construcao): 1711.4180 | Rotas: 9
+Iter 1: 1586.4564 | Rotas: 9
+Iter 2: 1378.9373 | Rotas: 9
+Iter 3: 1375.6168 | Rotas: 9
+Iter 313: 1374.0543 | Rotas: 9
+Iter 485: 1319.0058 | Rotas: 9
+Iter 487: 1269.1301 | Rotas: 9
+Iter 3939: 1267.5355 | Rotas: 9
+Iter 4240: 1257.1139 | Rotas: 9
+Iter 4241: 1255.9130 | Rotas: 9
+Iter 4242: 1252.7760 | Rotas: 9
+Score final: 1252.7760 | Rotas: 9
+Iteracoes de intensificacao: 36835
+Score inicial (construcao): 1945.7510 | Rotas: 10
+Iter 1: 1559.6883 | Rotas: 10
+Iter 2: 1471.4789 | Rotas: 10
+Iter 3: 1448.0192 | Rotas: 10
+Iter 4: 1445.9134 | Rotas: 10
+Iter 56: 1401.7258 | Rotas: 10
+Iter 243: 1397.3409 | Rotas: 10
+Iter 1236: 1388.8099 | Rotas: 10
+Iter 1237: 1383.2059 | Rotas: 10
+Iter 1689: 1381.3731 | Rotas: 10
+Iter 2141: 1359.7757 | Rotas: 10
+Iter 2142: 1357.7221 | Rotas: 10
+Iter 2294: 1350.5394 | Rotas: 10
+Iter 2746: 1348.0346 | Rotas: 10
+Iter 3798: 1347.4785 | Rotas: 10
+Iter 7854: 1343.6301 | Rotas: 10
+Iter 14758: 1340.4443 | Rotas: 10
+Score final: 1340.4443 | Rotas: 10
+Iteracoes de intensificacao: 40699
+Score inicial (construcao): 1768.7079 | Rotas: 10
+Iter 1: 1591.4030 | Rotas: 10
+Iter 2: 1572.0805 | Rotas: 10
+Iter 3: 1570.2247 | Rotas: 10
+Iter 54: 1567.1771 | Rotas: 10
+Iter 691: 1555.6259 | Rotas: 11
+Iter 692: 1545.6237 | Rotas: 11
+Iter 943: 1527.6269 | Rotas: 11
+Iter 1238: 1524.2895 | Rotas: 11
+Iter 1239: 1506.8533 | Rotas: 11
+Iter 1390: 1504.6421 | Rotas: 11
+Iter 2142: 1497.3361 | Rotas: 11
+Iter 2143: 1497.2531 | Rotas: 11
+Score final: 1497.2531 | Rotas: 11
+Iteracoes de intensificacao: 41806
+Score inicial (construcao): 1661.9715 | Rotas: 10
+Iter 1: 1482.2073 | Rotas: 10
+Iter 2: 1482.0881 | Rotas: 10
+Iter 53: 1477.1907 | Rotas: 10
+Iter 54: 1448.2357 | Rotas: 10
+Iter 172: 1416.1162 | Rotas: 10
+Iter 173: 1376.2206 | Rotas: 10
+Iter 174: 1365.0244 | Rotas: 10
+Iter 244: 1360.3697 | Rotas: 10
+Iter 319: 1352.7293 | Rotas: 10
+Iter 1090: 1326.0349 | Rotas: 10
+Iter 1091: 1312.2676 | Rotas: 10
+Iter 2293: 1302.0166 | Rotas: 10
+Iter 2595: 1277.2164 | Rotas: 10
+Iter 2596: 1273.6872 | Rotas: 10
+Iter 4098: 1265.5692 | Rotas: 10
+Score final: 1265.5692 | Rotas: 10
+Iteracoes de intensificacao: 36987
+Score inicial (construcao): 1829.9235 | Rotas: 9
+Iter 1: 1602.0333 | Rotas: 9
+Iter 2: 1551.7020 | Rotas: 9
+Iter 110: 1523.3237 | Rotas: 9
+Iter 111: 1497.1596 | Rotas: 9
+Iter 112: 1490.3953 | Rotas: 9
+Iter 114: 1426.1724 | Rotas: 9
+Iter 116: 1385.4940 | Rotas: 9
+Iter 181: 1384.5511 | Rotas: 10
+Iter 2442: 1382.5327 | Rotas: 10
+Iter 5899: 1374.9513 | Rotas: 10
+Iter 6354: 1360.3519 | Rotas: 10
+Iter 6505: 1359.4002 | Rotas: 10
+Iter 7560: 1347.8169 | Rotas: 10
+Iter 7561: 1345.2536 | Rotas: 10
+Iter 8013: 1344.9071 | Rotas: 10
+Iter 11766: 1342.8994 | Rotas: 10
+Iter 12518: 1337.6588 | Rotas: 10
+Iter 12519: 1332.6615 | Rotas: 10
+Iter 12520: 1330.8363 | Rotas: 10
+Score final: 1330.8363 | Rotas: 10
+Iteracoes de intensificacao: 42004
+Score inicial (construcao): 1626.6850 | Rotas: 9
+Iter 1: 1308.0603 | Rotas: 9
+Iter 2: 1142.9954 | Rotas: 9
+Iter 3: 1142.8905 | Rotas: 9
+Iter 55: 1141.1307 | Rotas: 9
+Iter 112: 1133.9135 | Rotas: 9
+Iter 113: 1117.5123 | Rotas: 9
+Iter 584: 1114.6075 | Rotas: 9
+Iter 1535: 1113.3806 | Rotas: 9
+Iter 14737: 1107.6661 | Rotas: 9
+Iter 14738: 1104.6808 | Rotas: 9
+Iter 22839: 1093.3336 | Rotas: 9
+Score final: 1093.3336 | Rotas: 9
+Iteracoes de intensificacao: 38372
+[autoopt] Score: 1329.76 (antes: 1305.34)
+[autoopt] Feasiveis: 10/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #34
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Construcao com Multiplas Solucoes Candidatas (Multi-Solution Construction).
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1305.34)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #35
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Perturbacao Fortalecida com Reconstrucao Parcial e Reinicializacao Adaptativa.
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: IndexError: list index out of range
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+
+============================================================
+[autoopt] Experimento #36
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Adicao de Relocate Single e Reordenamento do Local Search.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1305.34)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #37
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Implementacao de Heuristica Ruin and Recreate (RAR) e Operador Relocate Single.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 2132.60 (antes: 1305.34)
+[autoopt] Feasiveis: 4/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #38
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Implementacao de Adaptive Large Neighborhood Search (ALNS) com Simulated Annealing.
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: IndexError: pop index out of range
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Tentativa 2/3, aguardando 30s...
+[autoopt] Erro na comunicacao com Ollama: HTTPConnectionPool(host='localhost', port=11434): Read timed out. (read timeout=600)
+[autoopt] Falha na comunicacao. Pulando experimento.
+
+============================================================
+[autoopt] Experimento #39
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Implementacao de Operador de Route Regrouping e Melhorias nos Operadores de Local Search.
+[autoopt] Avaliando nova versao...
+[autoopt] CRASH: ValueError: empty range for randrange() (3, 3, 0)
+[autoopt] Proposta: sem descricao
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+[autoopt] Proposta: Perturbacao: Remove 3-6 clientes de rotas aleatorias e reinsere em posicoes diferentes.
+[autoopt] Codigo nao contem def solve(). Rejeitado.
+
+============================================================
+[autoopt] Experimento #40
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Perturbação Inteligente com Múltiplas Estratégias.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 1408.21 (antes: 1305.34)
+[autoopt] Feasiveis: 10/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #41
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Geracao 4 - Modificacao: Correcao e Otimizacao do 2-opt* Inter-rotas.
+[autoopt] Avaliando nova versao...
+[autoopt] Score: 50000.00 (antes: 1305.34)
+[autoopt] Feasiveis: 0/10
+[autoopt] Sem melhoria. Revertendo.
+
+============================================================
+[autoopt] Experimento #42
+============================================================
+[autoopt] Pedindo proposta ao qwen-reasoning...
+[autoopt] Proposta: Tenta consolidar rotas pequenas movendo seus clientes para outras rotas,
+[autoopt] Codigo nao contem def solve(). Rejeitado.
